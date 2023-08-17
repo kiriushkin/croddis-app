@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AppContext from './AppContext.js';
+import useApi from './Hooks/useApi.js';
+import Header from './Components/Header/Header.jsx';
 
 function App() {
+  const api = useApi();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ api }}>
+      <Router>
+        <div className="app">
+          <Header />
+        </div>
+      </Router>
+    </AppContext.Provider>
   );
 }
 
