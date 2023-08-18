@@ -8,8 +8,9 @@ import Header from '../Header/Header.jsx';
 
 const ProfileContext = createContext({});
 
-const Profile = ({ self = false }) => {
+const Profile = () => {
   const [profile, setProfile] = useState({});
+  const [self, setSelf] = useState(false);
   const [formData, setFormData] = useState(profile);
   const [isValidationError, setIsValidationError] = useState(false);
 
@@ -21,11 +22,9 @@ const Profile = ({ self = false }) => {
   useEffect(() => {
     (async () => {
       const thisUser = await api.getUserData();
-      const data = self
-        ? await api.getUserData()
-        : await api.getUserData(steamid);
+      if (thisUser && thisUser.steamid === steamid) setSelf(true);
+      const data = await api.getUserData(steamid);
       if (!data?.username) navigate('/');
-      if (thisUser && thisUser.id === data.id) navigate('/me');
       setProfile(data);
       setFormData(data);
     })();
@@ -71,7 +70,7 @@ const AboutBlock = () => {
           <span className="profile__text_big">
             {profile?.username}
             <a
-              href={`https://steamcommunity.com/id/${profile.username}/`}
+              href={`https://steamcommunity.com/profiles/${profile.steamid}/`}
               target="_blank"
               rel="noreferrer"
             >

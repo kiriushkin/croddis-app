@@ -28,7 +28,7 @@ const ProfileBlock = () => {
 
   return (
     <>
-      <Link to={'/me'}>
+      <Link to={'/user/' + user.steamid}>
         <div className="header__profile">
           <div className="header__profile-photo">
             <img src={user?.avatar?.medium} alt="" />

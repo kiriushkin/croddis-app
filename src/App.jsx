@@ -44,7 +44,6 @@ function App() {
         <div className="app">
           <Routes>
             <Route path="/auth" element={<Auth />} />
-            <Route path="/me" element={<Profile self={true} />} />
             <Route path="/user/:steamid" element={<Profile />} />
             <Route path="/" element={<Main />} />
             <Route path="*" element={<Navigate to="/" replace={true} />} />
