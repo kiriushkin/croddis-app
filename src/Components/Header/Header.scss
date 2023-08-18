@@ -12,7 +12,7 @@ header {
 .header {
   &__container {
     width: 100%;
-    max-width: 1400px;
+    max-width: var(--wrapper);
     margin-inline: auto;
 
     display: flex;
@@ -102,6 +102,11 @@ header {
     &:hover {
       background-color: var(--black3);
     }
+  }
+
+  a {
+    color: var(--white1);
+    text-decoration: none;
   }
 }
 

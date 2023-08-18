@@ -6,6 +6,8 @@
   --black2: #222;
   --black3: #444;
   --green1: #294;
+
+  --wrapper: 1400px;
 }
 
 * {

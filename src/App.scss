@@ -6,3 +6,25 @@
 
   overflow: hidden;
 }
+
+button {
+  padding: 10px;
+
+  background-color: var(--black2);
+  border: 1px solid var(--black3);
+  border-radius: 10px;
+
+  font-size: 2rem;
+  color: var(--white1);
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--black3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

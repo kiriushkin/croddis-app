@@ -1,0 +1,92 @@
+.profile {
+  width: 100%;
+
+  &__container {
+    padding: 20px 10px;
+
+    width: 100%;
+    max-width: var(--wrapper);
+    margin-inline: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    color: var(--white1);
+  }
+
+  &__block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__photo {
+    width: 96px;
+    height: 96px;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    box-shadow: 0px 2px 5px #0007;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    font-size: 2rem;
+
+    a {
+      color: var(--white1);
+    }
+
+    svg {
+      padding-left: 10px;
+    }
+
+    &_big {
+      font-size: 3rem;
+    }
+
+    &_highlighted {
+      padding: 5px;
+
+      border-radius: 10px;
+      background-color: var(--black1);
+
+      color: var(--green1);
+    }
+  }
+
+  &__input {
+    &-text {
+      padding: 10px 20px;
+      flex-grow: 1;
+
+      background-color: var(--black1);
+      border: none;
+      border-radius: 10px;
+
+      font-size: 2rem;
+      color: var(--white1);
+
+      &[data-invalid='true'] {
+        outline: 1px solid red;
+      }
+    }
+  }
+
+  &__button {
+    padding: 20px;
+
+    background-color: var(--green1);
+  }
+}

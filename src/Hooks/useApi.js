@@ -4,22 +4,20 @@ import { useState, useEffect } from 'react';
 const { NODE_ENV } = process.env;
 
 const useApi = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState('');
   const [userData, setUserData] = useState({});
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-      setToken(token);
-    }
-  }, []);
 
   const baseUrl =
     NODE_ENV === 'production'
       ? 'https://api.kiriushkin.pro/croddis-api'
       : 'http://192.168.31.3:3000';
+
+  const readToken = () => {
+    const token = localStorage.getItem('token');
+
+    setToken(token);
+    return token;
+  };
 
   const getAuthUrl = async () => {
     const resp = await axios.get(baseUrl + '/auth/link');
@@ -37,28 +35,56 @@ const useApi = () => {
     localStorage.setItem('token', token);
 
     setToken(token);
-    setIsLoggedIn(true);
 
     return true;
   };
 
-  const getUserData = async () => {
-    const resp = await axios.get(baseUrl + '/users', {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  const getUserData = async (steamid = null) => {
+    if (steamid) return await getUserBySteamid(steamid);
 
-    setUserData(resp.data);
+    const token = readToken();
 
-    return true;
+    if (!token) return;
+
+    try {
+      const resp = await axios.get(baseUrl + '/users', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setUserData(resp.data);
+
+      return resp.data;
+    } catch (error) {
+      if (error.response.status === 401) await logout();
+    }
+  };
+
+  const getUserBySteamid = async (steamid) => {
+    try {
+      const resp = await axios.get(baseUrl + '/users/' + steamid);
+
+      return resp.data;
+    } catch (error) {
+      if (error.response.status === 404) return null;
+    }
+  };
+
+  const updateUser = async (id, data) => {
+    try {
+      const resp = await axios.patch(baseUrl + '/users/' + id, data);
+
+      console.log(resp.data);
+    } catch (error) {
+      if (error.response.status === 404) return null;
+    }
   };
 
   const logout = async () => {
     localStorage.removeItem('token');
-    setIsLoggedIn(false);
     setToken('');
   };
 
-  return { isLoggedIn, userData, getAuthUrl, auth, logout, getUserData };
+  return { token, userData, getAuthUrl, auth, logout, getUserData, updateUser };
 };
 
 export default useApi;
