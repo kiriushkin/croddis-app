@@ -5,6 +5,60 @@
   background-color: var(--black2);
 
   overflow: hidden;
+
+  color: var(--white1);
+}
+
+.card {
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border-radius: 10px;
+  box-shadow: 0 5px 10px #0007;
+
+  &-img {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  svg {
+    width: 32px;
+    height: 32px;
+
+    color: var(--white1);
+  }
+}
+
+.text {
+  font-size: 2rem;
+
+  &_big {
+    font-size: 3rem;
+  }
+
+  &_highlighted {
+    padding: 5px;
+
+    border-radius: 10px;
+    background-color: var(--black1);
+
+    color: var(--green1);
+  }
+}
+
+a {
+  color: var(--white1);
+  text-decoration: none;
 }
 
 button {

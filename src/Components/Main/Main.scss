@@ -1,0 +1,12 @@
+main {
+  width: 100%;
+  padding: 20px;
+}
+
+.main {
+  &__container {
+    width: 100%;
+    max-width: var(--wrapper);
+    margin-inline: auto;
+  }
+}

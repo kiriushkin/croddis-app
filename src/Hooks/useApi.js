@@ -47,7 +47,7 @@ const useApi = () => {
     if (!token) return;
 
     try {
-      const resp = await axios.get(baseUrl + '/users', {
+      const resp = await axios.get(baseUrl + '/users/me', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -69,11 +69,21 @@ const useApi = () => {
     }
   };
 
-  const updateUser = async (id, data) => {
-    try {
-      const resp = await axios.patch(baseUrl + '/users/' + id, data);
+  const getAllUsers = async () => {
+    const resp = await axios.get(baseUrl + '/users');
 
-      console.log(resp.data);
+    return resp.data;
+  };
+
+  const updateUser = async (id, data) => {
+    const token = readToken();
+
+    if (!token) return;
+
+    try {
+      const resp = await axios.patch(baseUrl + '/users/' + id, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     } catch (error) {
       if (error.response.status === 404) return null;
     }
@@ -84,7 +94,16 @@ const useApi = () => {
     setToken('');
   };
 
-  return { token, userData, getAuthUrl, auth, logout, getUserData, updateUser };
+  return {
+    token,
+    userData,
+    getAuthUrl,
+    auth,
+    logout,
+    getUserData,
+    getAllUsers,
+    updateUser,
+  };
 };
 
 export default useApi;

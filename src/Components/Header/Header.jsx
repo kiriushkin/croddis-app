@@ -12,7 +12,9 @@ const Header = () => {
     <header>
       <div className="header header__container">
         <div className="header__item">
-          <div className="header__logo">Croddis</div>
+          <Link to={'/'} reloadDocument>
+            <div className="header__logo">Croddis</div>
+          </Link>
         </div>
         <div className="header__item">
           {api.token ? <ProfileBlock /> : <LoginButton />}
@@ -28,7 +30,7 @@ const ProfileBlock = () => {
 
   return (
     <>
-      <Link to={'/user/' + user.steamid}>
+      <Link to={'/user/' + user.steamid} reloadDocument>
         <div className="header__profile">
           <div className="header__profile-photo">
             <img src={user?.avatar?.medium} alt="" />
