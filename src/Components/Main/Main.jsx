@@ -49,7 +49,7 @@ const Top = () => {
       >
         {users.map((user) => {
           return (
-            <Link to={`/user/${user.steamid}`} target="_blank">
+            <Link to={`/user/${user.steamid}`}>
               <div className="card">
                 <div className="card-img">
                   <img src={user?.avatar.medium} alt="" />
