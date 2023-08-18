@@ -1,10 +1,19 @@
 :root {
+  --white1: #fff;
+  --white2: #ddd;
+  --white3: #bbb;
   --black1: #000;
   --black2: #222;
   --black3: #444;
+  --green1: #294;
 }
 
-body {
+* {
   margin: 0;
   box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  font-family: 'Onest';
 }

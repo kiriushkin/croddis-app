@@ -1,12 +1,46 @@
 import './Header.scss';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro.js';
 import AppContext from '../../AppContext.js';
 
 const Header = () => {
+  const { api } = useContext(AppContext);
+
   return (
     <header>
-      <LoginButton />
+      <div className="header header__container">
+        <div className="header__item">
+          <div className="header__logo">Croddis</div>
+        </div>
+        <div className="header__item">
+          {api?.isLoggedIn ? <ProfileBlock /> : <LoginButton />}
+        </div>
+      </div>
     </header>
+  );
+};
+
+const ProfileBlock = () => {
+  const { api } = useContext(AppContext);
+  const { userData: user } = api;
+
+  useEffect(() => {
+    api.getUserData();
+  }, []);
+
+  return (
+    <>
+      <div className="header__profile">
+        <div className="header__profile-photo">
+          <img src={user?.avatar?.medium} alt="" />
+        </div>
+        <div className="header__username">{user?.username}</div>
+      </div>
+      <div className="header__logout" onClick={api.logout}>
+        <FontAwesomeIcon icon={icon({ name: 'arrow-right-from-bracket' })} />
+      </div>
+    </>
   );
 };
 
@@ -15,10 +49,20 @@ const LoginButton = () => {
 
   const redirect = async () => {
     const url = await api.getAuthUrl();
+
     window.open(url, '_self');
   };
 
-  return <button onClick={redirect}>Login</button>;
+  return (
+    <button className="header__login" onClick={redirect}>
+      <FontAwesomeIcon icon={icon({ name: 'steam-symbol', style: 'brands' })} />
+      <div>
+        Login
+        <br />
+        via Steam
+      </div>
+    </button>
+  );
 };
 
 export default Header;

@@ -1,8 +1,9 @@
 import './App.scss';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppContext from './AppContext.js';
 import useApi from './Hooks/useApi.js';
-import Header from './Components/Header/Header.jsx';
+import Main from './Components/Main/Main.jsx';
+import Auth from './Components/Auth/Auth.jsx';
 
 function App() {
   const api = useApi();
@@ -11,7 +12,10 @@ function App() {
     <AppContext.Provider value={{ api }}>
       <Router>
         <div className="app">
-          <Header />
+          <Routes>
+            <Route path="/auth" Component={Auth} />
+            <Route path="/" Component={Main} />
+          </Routes>
         </div>
       </Router>
     </AppContext.Provider>
